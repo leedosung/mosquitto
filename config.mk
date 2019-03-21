@@ -21,12 +21,12 @@
 # Disabling this will also mean that passwords must be stored in plain text. It
 # is strongly recommended that you only disable WITH_TLS if you are not using
 # password authentication at all.
-WITH_TLS:=yes
+WITH_TLS:=no
 
 # Comment out to disable TLS/PSK support in the broker and client. Requires
 # WITH_TLS=yes.
 # This must be disabled if using openssl < 1.0.
-WITH_TLS_PSK:=yes
+WITH_TLS_PSK:=no
 
 # Comment out to disable client threading support.
 WITH_THREADING:=yes
@@ -69,7 +69,7 @@ WITH_SRV:=no
 WITH_UUID:=yes
 
 # Build with websockets support on the broker.
-WITH_WEBSOCKETS:=no
+WITH_WEBSOCKETS:=yes
 
 # Use elliptic keys in broker
 WITH_EC:=yes
@@ -84,10 +84,10 @@ WITH_SOCKS:=yes
 WITH_STRIP:=no
 
 # Build static libraries
-WITH_STATIC_LIBRARIES:=no
+WITH_STATIC_LIBRARIES:=yes
 
 # Build shared libraries
-WITH_SHARED_LIBRARIES:=yes
+WITH_SHARED_LIBRARIES:=no
 
 # Build with async dns lookup support for bridges (temporary). Requires glibc.
 #WITH_ADNS:=yes
@@ -128,6 +128,7 @@ ifeq ($(UNAME),SunOS)
 else
 	CFLAGS?=-Wall -ggdb -O2
 endif
+
 
 STATIC_LIB_DEPS:=
 LIB_CFLAGS:=${CFLAGS} ${CPPFLAGS} -I. -I.. -I../lib
@@ -276,7 +277,7 @@ endif
 
 ifeq ($(WITH_WEBSOCKETS),yes)
 	BROKER_CFLAGS:=$(BROKER_CFLAGS) -DWITH_WEBSOCKETS
-	BROKER_LIBS:=$(BROKER_LIBS) -lwebsockets
+#	BROKER_LIBS:=$(BROKER_LIBS) -lwebsockets
 endif
 
 ifeq ($(WITH_WEBSOCKETS),static)
@@ -285,7 +286,7 @@ ifeq ($(WITH_WEBSOCKETS),static)
 endif
 
 INSTALL?=install
-prefix?=/usr/local
+prefix?=
 incdir?=${prefix}/include
 libdir?=${prefix}/lib${LIB_SUFFIX}
 localedir?=${prefix}/share/locale

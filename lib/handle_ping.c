@@ -39,7 +39,8 @@ int handle__pingreq(struct mosquitto *mosq)
 {
 	assert(mosq);
 #ifdef WITH_BROKER
-	log__printf(NULL, MOSQ_LOG_DEBUG, "Received PINGREQ from %s", mosq->id);
+	// log__printf(NULL, MOSQ_LOG_DEBUG, "Received PINGREQ from %s", mosq->id);
+	log__printf(NULL, MOSQ_LOG_NOTICE, "Received PINGREQ from %s", mosq->id);
 #else
 	log__printf(mosq, MOSQ_LOG_DEBUG, "Client %s received PINGREQ", mosq->id);
 #endif
